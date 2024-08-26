@@ -19,7 +19,7 @@ export function MenuAction({ onClick }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger>...</DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>Invoice Receivable</DropdownMenuLabel>
+        <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="gap-2" onClick={() => onClick()}>
           <Eye size={16} />
