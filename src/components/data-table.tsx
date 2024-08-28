@@ -16,7 +16,6 @@ interface Props {
 
 export function DataTable({ dataset }: Props) {
   const [openInfoViwerModal, setOpenInfoViwerModal] = useState(false)
-  const [data, _] = useState(dataset)
 
   const searchParams = useSearchParams()
   const orderByType = searchParams.get('orderByType')
@@ -74,24 +73,24 @@ export function DataTable({ dataset }: Props) {
             <div style={style}>
               <div className="w-full grid grid-cols-12 bg-white rounded-lg py-3 px-4 relative gap-3">
                 <div className="col-span-2  truncate">
-                  <p className="truncate">{data[index].name}</p>
+                  <p className="truncate">{dataset[index].name}</p>
                 </div>
                 <div className="col-span-4">
-                  <p className="truncate">{data[index].email}</p>
+                  <p className="truncate">{dataset[index].email}</p>
                 </div>
                 <div className="col-span-3">
-                  <p className="truncate">{data[index].phone}</p>
+                  <p className="truncate">{dataset[index].phone}</p>
                 </div>
                 <div className="col-span-2">
                   <p className="truncate">
                     {
                       <Badge
                         variant={
-                          data[index].gender === 'male'
+                          dataset[index].gender === 'male'
                             ? 'primary'
                             : 'secondary'
                         }
-                        text={data[index].gender}
+                        text={dataset[index].gender}
                       />
                     }
                   </p>
