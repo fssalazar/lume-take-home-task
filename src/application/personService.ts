@@ -5,11 +5,16 @@ export const getPeopleForTable = async (
   sortBy: keyof PersonProps,
 ): Promise<PersonProps[]> => {
   const people = await fetchPeople()
-  return people.sort((a, b) => {
-    if (a[sortBy]! < b[sortBy]!) return -1
-    if (a[sortBy]! > b[sortBy]!) return 1
-    return 0
-  })
+  if (sortBy) {
+    const sortedPeople = people.sort((a, b) => {
+      if (a[sortBy]! < b[sortBy]!) return -1
+      if (a[sortBy]! > b[sortBy]!) return 1
+      return 0
+    })
+    return sortedPeople
+  }
+
+  return people
 }
 
 export const getPersonDetails = async (): Promise<PersonProps> => {

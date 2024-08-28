@@ -25,7 +25,7 @@ export function DataTable({ dataset }: Props) {
     <div className="w-full h-full text-slate-700 mb-10">
       <div className="w-full grid grid-cols-12 px-4 relative gap-3 mb-4 font-semibold">
         <Link
-          href={'?orderByType=name'}
+          href={'/?orderByType=name'}
           className="col-span-2 flex items-center hover:cursor-pointer"
         >
           Name
@@ -34,7 +34,7 @@ export function DataTable({ dataset }: Props) {
           />
         </Link>
         <Link
-          href={'?orderByType=email'}
+          href={'/?orderByType=email'}
           className="col-span-4 flex items-center hover:cursor-pointer"
         >
           Email
@@ -43,7 +43,7 @@ export function DataTable({ dataset }: Props) {
           />
         </Link>
         <Link
-          href={'?orderByType=phone'}
+          href={'/?orderByType=phone'}
           className="col-span-3 flex items-center hover:cursor-pointer"
         >
           Phone
@@ -52,7 +52,7 @@ export function DataTable({ dataset }: Props) {
           />
         </Link>
         <Link
-          href={'?orderByType=gender'}
+          href={'/?orderByType=gender'}
           className="col-span-2 flex items-center hover:cursor-pointer"
         >
           Gender

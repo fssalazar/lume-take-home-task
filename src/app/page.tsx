@@ -2,8 +2,8 @@ import { getPeopleForTable } from '@/application/personService'
 import { DataTable } from '@/components/data-table'
 import { Suspense } from 'react'
 
-async function DataTableWrapper({ orderByTyppe }: any) {
-  const dataset = await getPeopleForTable(orderByTyppe)
+async function DataTableWrapper({ orderByType }: any) {
+  const dataset = await getPeopleForTable(orderByType)
   return <DataTable dataset={dataset} />
 }
 export default async function Home({ searchParams }: any) {
