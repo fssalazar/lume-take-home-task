@@ -1,113 +1,70 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { Person } from '@/entities/person'
 import { FixedSizeList as List } from 'react-window'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Badge } from './badge'
 import { MenuAction } from './menu-action'
 import { Detail } from './detail'
 import { ChevronDownIcon } from 'lucide-react'
+import { PersonProps } from '@/domain/entities/Person'
+import { useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 
 interface Props {
-  dataset: Person[]
+  dataset: PersonProps[]
 }
 
 export function DataTable({ dataset }: Props) {
-  const [data, setData] = useState(dataset)
-  const [orderByType, setOrderByType] = useState<
-    'name' | 'email' | 'phone' | 'gender' | undefined
-  >()
-  const [openInfoViwerModal, setOpenInfoViwerModal] = useState<
-    Person | undefined
-  >()
+  const [openInfoViwerModal, setOpenInfoViwerModal] = useState(false)
+  const [data, _] = useState(dataset)
 
-  function sortData() {
-    if (orderByType) {
-      data.sort((a, b) => {
-        if (a[orderByType] < b[orderByType]) {
-          return -1
-        }
-        if (a[orderByType] > b[orderByType]) {
-          return 1
-        }
-        return 0
-      })
-
-      setData([...data])
-    } else {
-      setData([...dataset])
-    }
-  }
-
-  useEffect(() => {
-    sortData()
-  }, [orderByType])
+  const searchParams = useSearchParams()
+  const orderByType = searchParams.get('orderByType')
 
   return (
     <div className="w-full h-full text-slate-700 mb-10">
       <div className="w-full grid grid-cols-12 px-4 relative gap-3 mb-4 font-semibold">
-        <div
+        <Link
+          href={'?orderByType=name'}
           className="col-span-2 flex items-center hover:cursor-pointer"
-          onClick={() => {
-            if (orderByType === 'name') {
-              return setOrderByType(undefined)
-            }
-            setOrderByType('name')
-          }}
         >
           Name
           <ChevronDownIcon
             className={`${orderByType === 'name' ? 'rotate-180' : 'rotate-0'} transition-all`}
           />
-        </div>
-        <div
+        </Link>
+        <Link
+          href={'?orderByType=email'}
           className="col-span-4 flex items-center hover:cursor-pointer"
-          onClick={() => {
-            if (orderByType === 'email') {
-              return setOrderByType(undefined)
-            }
-            setOrderByType('email')
-          }}
         >
           Email
           <ChevronDownIcon
             className={`${orderByType === 'email' ? 'rotate-180' : 'rotate-0'} transition-all`}
           />
-        </div>
-        <div
+        </Link>
+        <Link
+          href={'?orderByType=phone'}
           className="col-span-3 flex items-center hover:cursor-pointer"
-          onClick={() => {
-            if (orderByType === 'phone') {
-              return setOrderByType(undefined)
-            }
-            setOrderByType('phone')
-          }}
         >
           Phone
           <ChevronDownIcon
             className={`${orderByType === 'phone' ? 'rotate-180' : 'rotate-0'} transition-all`}
           />
-        </div>
-        <div
+        </Link>
+        <Link
+          href={'?orderByType=gender'}
           className="col-span-2 flex items-center hover:cursor-pointer"
-          onClick={() => {
-            if (orderByType === 'gender') {
-              return setOrderByType(undefined)
-            }
-            setOrderByType('gender')
-          }}
         >
           Gender
           <ChevronDownIcon
             className={`${orderByType === 'gender' ? 'rotate-180' : 'rotate-0'} transition-all`}
           />
-        </div>
+        </Link>
         <div className="col-span-1"></div>
       </div>
       <List
         innerElementType="div"
-        itemCount={data.length}
+        itemCount={dataset.length}
         itemSize={60}
         height={1000}
         width={'100%'}
@@ -140,9 +97,7 @@ export function DataTable({ dataset }: Props) {
                   </p>
                 </div>
                 <div className="col-span-1">
-                  <MenuAction
-                    onClick={() => setOpenInfoViwerModal(data[index])}
-                  />
+                  <MenuAction onClick={() => setOpenInfoViwerModal(true)} />
                 </div>
               </div>
             </div>
@@ -151,9 +106,8 @@ export function DataTable({ dataset }: Props) {
       </List>
       {openInfoViwerModal && (
         <Detail
-          data={openInfoViwerModal}
           open={!!openInfoViwerModal}
-          onClose={() => setOpenInfoViwerModal(undefined)}
+          onClose={() => setOpenInfoViwerModal(false)}
         />
       )}
     </div>
